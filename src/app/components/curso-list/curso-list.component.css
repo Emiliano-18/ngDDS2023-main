@@ -1,0 +1,89 @@
+.container {
+  margin: 20px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input.form-control {
+  flex: 1;
+}
+
+.custom-btn {
+  background-color: #CCC8AA; /* Cambia el color de fondo del botón a #CCC8AA */
+  color: #000; /* Cambia el color del texto a negro */
+  margin-left: 10px; /* Añade margen izquierdo para separar el botón del campo de búsqueda */
+}
+
+.list-title {
+  margin-top: 10px; /* Añade margen superior para separar el título de la barra de búsqueda */
+  margin-bottom: 5px;
+}
+
+
+.container {
+  margin: 20px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input.form-control {
+  flex: 1;
+}
+
+button.btn-primary {
+  background-color: #CCC8AA; /*007bff*/
+  color: #fff;
+}
+
+.course-list {
+  list-style: none;
+  padding: 0;
+}
+
+.course-list li {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+  border-radius: 5px;
+}
+
+.course-list li:hover {
+  transform: scale(1.05); /* Escala ligeramente cuando el ratón pasa por encima */
+}
+
+.course-list li.active {
+  background-color: #CCC8AA; /* Cambia el color de fondo a verde claro */
+  color: #000; /* Cambia el color del texto a negro */
+  font-family: sans-serif;
+  font-size: 17px;
+  transform: scale(1.1); /* Escala ligeramente cuando se selecciona */
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease; /* Agrega transiciones para transform, color de fondo y color de texto */
+}
+
+
+
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:disabled {
+  background-color: #ccc;
+  color: #ff0000;
+  cursor: not-allowed;
+}
+

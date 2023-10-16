@@ -1,0 +1,123 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentElement.id" class="info-container">
+    <h2 class="header">Instituto Educativo - Curso</h2>
+    <div class="info" style="margin-top: 15px">
+      <strong class="label">Nombre:</strong> {{ currentElement.nombre }}
+    </div>
+    <div class="info">
+      <strong class="label">Tema:</strong> {{ currentElement.tema == null ? "-" : currentElement.tema.nombre }}
+    </div>
+    <div *ngIf="currentElement.tema" (NgChange)="asignarTemaId(currentElement.tema.id)">
+     {{ asignarTemaId(currentElement.tema.id) }}
+    </div>
+
+    <div class="materials" style="margin-top: 1px;">
+      <strong class="label">Materiales:</strong>
+      <ul class="material-list">
+        <ng-container *ngIf="materialesTema && materialesTema.length > 0; else noMateriales">
+          <li *ngFor="let materialT of materialesTema">{{ materialT.titulo }}</li>
+        </ng-container>
+        <ng-template #noMateriales>
+          <li style="margin-bottom: -10px;">No tiene materiales</li>
+        </ng-template>
+      </ul>
+    </div>
+
+    <div class="info" style="margin-top: -10px;">
+      <strong class="label">Profesor:</strong> {{ currentElement.idDocente !== undefined ? getNombreDocente(currentElement.idDocente) : '-' }}
+    </div>
+    <div class="info">
+      <strong class="label">Fecha inicio:</strong> {{ currentElement.fechaInicio | date: 'dd-MM-yyyy' }}
+    </div>
+    <a class="edit-link" routerLink="/cursos/{{ currentElement.id }}">Editar</a>
+  </div>
+
+  <div *ngIf="!currentElement">
+    <br />
+    <p class="no-course-message">Por favor, haga clic en un curso...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentElement.id" class="edit-mode">
+    <h2 class="header" style="color: #191717;">Instituto Educativo - Curso</h2>
+    <form class="custom-form">
+      <div class="form-group">
+        <label for="title" class="label">Nombre del curso:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentElement.nombre"
+          name="title"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="fechaInicio" class="label">Fecha inicio:</label>
+        <input
+          class="form-control"
+          id="fechaInicio"
+          required
+          [(ngModel)]="currentElement.fechaInicio"
+          name="fechaInicio"
+          type="date"
+          [min]="currentDate"
+          placeholder="dd/mm/yyyy hh:mm"
+          pattern="\d{2}/\d{2}/\d{4} \d{2}:\d{2}"
+        />
+      </div>
+
+      <div class="info">
+        <strong class="label">Profesor:</strong> {{ currentElement.idDocente !== undefined ? getNombreDocente(currentElement.idDocente) : '-' }}
+      </div>
+
+      <div class="info">
+        <strong class="label">Tema:</strong> {{ currentElement.tema == null ? "-" : currentElement.tema.nombre }}
+      </div>
+      
+      <!-- Asignamos el IdTema para que muestre los materiales -->
+      <div *ngIf="currentElement.tema" (NgChange)="asignarTemaId(currentElement.tema.id)">
+       {{ asignarTemaId(currentElement.tema.id) }}
+      </div>
+      <!-- Estilo de la lista para que muestre los puntos al lado de cada material -->
+      <style>
+  		.material-list {
+    	list-style-type: circle;
+    	padding-left: 20px;
+  		}
+	</style>
+      <div class="materials" style="margin-top: 1px;">
+      <strong class="label">Materiales:</strong>
+      <ul class="material-list">
+        <ng-container *ngIf="materialesTema && materialesTema.length > 0; else noMateriales">
+          <li *ngFor="let materialT of materialesTema">{{ materialT.titulo }}</li>
+        </ng-container>
+        <ng-template #noMateriales>
+          <li style="margin-bottom: -10px;">No tiene materiales</li>
+        </ng-template>
+      </ul>
+    </div>
+
+    </form>
+    <div class="button-container">
+      <button class="delete-button" (click)="deleteElement()">Eliminar</button>
+      <div class="container">
+  <p class="message" style="color: #005B41;">{{ message }}</p>
+</div>
+
+      <button type="submit" class="update-button" (click)="updateElement()">Actualizar</button>
+    </div>
+    
+  </div>
+
+  <div *ngIf="!currentElement.id">
+    <br />
+    <p class="no-course-message">Elemento no encontrado...</p>
+  </div>
+</ng-template>
+
+
+
+
+ 

@@ -1,0 +1,88 @@
+<div class="outer-container">
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-header">
+        <h2><i class="fas fa-plus"></i> Añadir nuevo curso</h2>
+      </div>
+      <div class="form-group">
+        <label for="title">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="curso.nombre"
+          (ngModelChange)="onNombreChange()"
+          name="title"
+        />
+        <div class="error-message" *ngIf="nombreError">El campo Nombre no puede estar vacío.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="docente">Docente</label>
+        <select class="form-control" id="docente" required [(ngModel)]="curso.idDocente" (change)="capturarDocente()" (ngModelChange)="onDocenteChange()">
+          <option value="0" disable>Seleccione un docente</option>
+          <option value="1">Sergio Viera</option>
+          <option value="2">Santiago Ragazzo</option>
+          <option value="3">Marcelo Badino</option>
+          <option value="4">Jorge Vidal</option>
+          <option value="5">Guillermo Cherencio</option>
+          <option value="6">Juan Carlos Romero</option>
+          <option value="7">Carlos Henseler</option>
+        </select>
+        <div class="error-message" *ngIf="docenteError">Por favor, seleccione un docente.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="tema">Tema</label>
+        <select class="form-control" id="tema" (change)="onTemaSelected($event)">
+          <option disable value="0">Seleccione un tema</option>
+          <option *ngFor="let tema of temas" [value]="tema.id">{{ tema.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fechaInicio">Fecha inicio</label>
+        <input
+          class="form-control"
+          id="fechaInicio"
+          required
+          [(ngModel)]="curso.fechaInicio"
+          name="fechaInicio"
+          type="date"
+          [min]="currentDate"
+          placeholder="dd/mm/yyyy hh:mm"
+          pattern="\d{2}/\d{2}/\d{4} \d{2}:\d{2}"
+        />
+      </div>
+	  
+	  <style>
+  		.material-list {
+    	list-style-type: circle;
+    	padding-left: 20px;
+  		}
+	</style>
+      <div class="form-group">
+        <label for="material" style="margin-bottom: -10px;">Materiales:</label>
+        <ul class="material-list" style="margin-bottom: 20px;">
+          <ng-container *ngIf="materialesTema && materialesTema.length > 0; else noMateriales">
+            <li *ngFor="let materialT of materialesTema">{{ materialT.titulo }}</li>
+          </ng-container>
+          <ng-template #noMateriales>
+            <li>No tiene materiales</li>
+          </ng-template>
+        </ul>
+      </div>
+
+      <button (click)="saveCurso()" class="btn btn-success">Añadir Curso</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>Curso was submitted successfully!</h4>
+      <div class="button-container">
+        <button class="btn btn-primary" (click)="newCurso()">Añadir otro curso</button>
+        <a href="/cursos" class="btn btn-primary">Volver a los cursos</a>
+      </div>
+    </div>
+  </div>
+</div>
